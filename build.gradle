@@ -1,0 +1,71 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+//    maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+    /*maven { //设置下载库地址
+        credentials {
+            username "myMavenRepo"
+            password "test"
+        }
+        url "https://mymavenrepo.com/repo/XL62J2nMpLk4ILr5VES7/"
+    }*/
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.security:spring-security-data'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'mysql:mysql-connector-java'
+    compile 'org.hibernate.validator:hibernate-validator'
+//    runtimeOnly 'org.flywaydb:flyway-core'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testCompile 'org.junit.jupiter:junit-jupiter-api'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+configurations {
+    all{
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+/*
+publishing {
+    repositories {
+        maven { //此处配置上传库的地址
+            credentials {
+                username "myMavenRepo"
+                password "test"
+            }
+            url "https://mymavenrepo.com/repo/XL62J2nMpLk4ILr5VES7/"
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}*/
